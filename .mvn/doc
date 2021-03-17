@@ -1,0 +1,6 @@
+day1
+    1.搭建基本后台框架。构建父工程、common（common_util、service_util）、model、service(service_user),修改对应的pom文件。
+day2
+    1.构建医院设置model（service_hosp）。controller、service、mapper、config，构建配置文件application.propertis。
+    2.编写查询、删除接口
+    3.搭建swagger，引入两个依赖springfox-swagger2、springfox-swagger-ui,common包中引入Swagger2Config配置文件，注意依赖引用。
