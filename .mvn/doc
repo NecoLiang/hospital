@@ -3,4 +3,5 @@ day1
 day2
     1.构建医院设置model（service_hosp）。controller、service、mapper、config，构建配置文件application.propertis。
     2.编写查询、删除接口
-    3.搭建swagger，引入两个依赖springfox-swagger2、springfox-swagger-ui,common包中引入Swagger2Config配置文件，注意依赖引用。
+    3.搭建swagger，引入两个依赖springfox-swagger2、springfox-swagger-ui,common包中引入Swagger2Config配置文件，注意依赖引用,配置扫描路径。
+    4.统一返回结果定义

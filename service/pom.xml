@@ -27,6 +27,10 @@
             <artifactId>service_util</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.atneco</groupId>
+            <artifactId>common_util</artifactId>
+        </dependency>
         <!--web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

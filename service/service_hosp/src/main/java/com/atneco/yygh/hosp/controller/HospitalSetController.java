@@ -1,13 +1,20 @@
 package com.atneco.yygh.hosp.controller;
 
+import com.atneco.common.util.MD5;
+import com.atneco.yygh.common.result.Result;
 import com.atneco.yygh.hosp.service.HospitalSetService;
 import com.atneco.yygh.model.hosp.HospitalSet;
+import com.atneco.yygh.vo.hosp.HospitalSetQueryVo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author liangyt
@@ -24,16 +31,57 @@ public class HospitalSetController {
 
     @ApiOperation(value = "获取所有医院设置")
     @GetMapping("findAll")
-    public List<HospitalSet> findAllHospitalSet(){
+    public Result findAllHospitalSet(){
         List<HospitalSet> list = hospitalSetService.list();
-        return list;
+        return Result.ok(list);
     }
 
     //2 逻辑删除医院设置
     @ApiOperation(value = "逻辑删除医院设置")
     @DeleteMapping("{id}")
-    public boolean removeHospSet(@PathVariable Long id){
+    public Result removeHospSet(@PathVariable Long id){
         boolean flag = hospitalSetService.removeById(id);
-        return flag;
+        if (flag){
+            return Result.ok();
+        }else {
+            return Result.fail();
+        }
     }
+
+    //3.条件分页查询
+    @GetMapping("findPageHospSet/{current}/{limit}")
+    public Result findPageHospSet(@PathVariable long current, @PathVariable long limit, @RequestBody(required = false) HospitalSetQueryVo hospitalSetQueryVo){
+        Page<HospitalSet> page = new Page<>(current, limit);
+        QueryWrapper<HospitalSet> queryWrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(hospitalSetQueryVo.getHosname())){
+            queryWrapper.like("hosname",hospitalSetQueryVo.getHosname());
+        }
+        if (!StringUtils.isEmpty(hospitalSetQueryVo.getHoscode())){
+            queryWrapper.eq("hoscode",hospitalSetQueryVo.getHoscode());
+        }
+        Page<HospitalSet> pageHospitalSet = hospitalSetService.page(page, queryWrapper);
+        if (!pageHospitalSet.getRecords().isEmpty()){
+            return Result.ok(pageHospitalSet);
+        }else {
+            return Result.ok("暂无数据");
+        }
+    }
+
+    //4.添加医院设置
+    @PostMapping("saveHospitalSet")
+    public Result saveHospitalSet(@RequestBody HospitalSet hospitalSet){
+        //设置状态 1 使用 0 不能使用
+        hospitalSet.setStatus(1);
+        //签名秘钥
+        Random random = new Random();
+        hospitalSet.setSignKey(MD5.encrypt(System.currentTimeMillis()+""+random.nextInt(1000)));
+        //调用service
+        boolean save = hospitalSetService.save(hospitalSet);
+        if(save) {
+            return Result.ok();
+        } else {
+            return Result.fail();
+        }
+    }
+
 }
