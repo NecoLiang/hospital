@@ -84,4 +84,57 @@ public class HospitalSetController {
         }
     }
 
+    //5.根据id获取医院设置
+    @GetMapping("getHospSet/{id}")
+    public Result getHospSet(@PathVariable Long id){
+        HospitalSet hospitalSet = hospitalSetService.getById(id);
+        return Result.ok(hospitalSet);
+    }
+
+    //6.修改医院设置
+    @PostMapping("updateHospitalSet")
+    public Result updateHospitalSet(@RequestBody HospitalSet hospitalSet){
+        boolean flag = hospitalSetService.updateById(hospitalSet);
+        if (flag){
+            return  Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+
+    //7.批量删除医院设置
+    @PostMapping("batchRemove")
+    public Result batchRemove(@RequestBody List<Long> idList){
+        boolean flag = hospitalSetService.removeByIds(idList);
+        if (flag){
+            return  Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+
+    //8.医院设置锁定和解锁
+    @PostMapping("lockHospitalSet/{id}/{status}")
+    public Result lockHospitalSet(@PathVariable Long id, @PathVariable Integer status){
+        HospitalSet hospitalSet = hospitalSetService.getById(id);
+        hospitalSet.setStatus(status);
+        boolean flag = hospitalSetService.updateById(hospitalSet);
+        if (flag){
+            return  Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+
+    //9.发送签名秘钥
+    @PostMapping("sendKey/{id}")
+    public Result sendKey(@PathVariable Long id){
+        HospitalSet hospitalSet = hospitalSetService.getById(id);
+        String hoscode = hospitalSet.getHoscode();
+        String signKey = hospitalSet.getSignKey();
+        //TODO发送短信
+        return Result.ok();
+
+    }
+
 }
