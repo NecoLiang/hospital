@@ -1,4 +1,4 @@
-package com.atneco.common.config;
+package com.atneco.yygh.common.config;
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;

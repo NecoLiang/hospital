@@ -1,6 +1,7 @@
 package com.atneco.yygh.hosp.controller;
 
-import com.atneco.common.util.MD5;
+import com.atneco.yygh.common.exception.YyghException;
+import com.atneco.yygh.common.util.MD5;
 import com.atneco.yygh.common.result.Result;
 import com.atneco.yygh.hosp.service.HospitalSetService;
 import com.atneco.yygh.model.hosp.HospitalSet;

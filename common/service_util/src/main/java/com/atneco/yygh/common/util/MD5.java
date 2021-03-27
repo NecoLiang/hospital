@@ -1,4 +1,4 @@
-package com.atneco.common.util;
+package com.atneco.yygh.common.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
