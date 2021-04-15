@@ -25,6 +25,7 @@ import java.util.Random;
 @Api(tags = "医院设置管理")
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
+@CrossOrigin
 public class HospitalSetController {
 
     @Autowired
@@ -50,7 +51,7 @@ public class HospitalSetController {
     }
 
     //3.条件分页查询
-    @GetMapping("findPageHospSet/{current}/{limit}")
+    @PostMapping("findPageHospSet/{current}/{limit}")
     public Result findPageHospSet(@PathVariable long current, @PathVariable long limit, @RequestBody(required = false) HospitalSetQueryVo hospitalSetQueryVo){
         Page<HospitalSet> page = new Page<>(current, limit);
         QueryWrapper<HospitalSet> queryWrapper = new QueryWrapper<>();
@@ -104,7 +105,7 @@ public class HospitalSetController {
     }
 
     //7.批量删除医院设置
-    @PostMapping("batchRemove")
+    @DeleteMapping("batchRemove")
     public Result batchRemove(@RequestBody List<Long> idList){
         boolean flag = hospitalSetService.removeByIds(idList);
         if (flag){
