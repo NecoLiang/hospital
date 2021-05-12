@@ -14,6 +14,7 @@
     <modules>
         <module>service_user</module>
         <module>service_hosp</module>
+        <module>service_cmn</module>
     </modules>
 
     <dependencies>
@@ -30,6 +31,7 @@
         <dependency>
             <groupId>com.atneco</groupId>
             <artifactId>common_util</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!--web-->
         <dependency>
