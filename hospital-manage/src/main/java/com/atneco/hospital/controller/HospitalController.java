@@ -2,10 +2,10 @@ package com.atneco.hospital.controller;
 
 import com.atneco.hospital.service.ApiService;
 import com.atneco.hospital.service.HospitalService;
-import com.atneco.hospital.util.HttpRequestHelper;
 import com.atneco.hospital.util.Result;
 import com.atneco.hospital.util.ResultCodeEnum;
 import com.atneco.hospital.util.YyghException;
+import com.atneco.yygh.common.helper.HttpRequestHelper;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
